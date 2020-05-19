@@ -8,7 +8,7 @@ export default class Team {
         if (current <= last) {
           result = {
             done: false,
-            value: current += 1,
+            value: this.team[current += 1],
           };
         }
         result = {
