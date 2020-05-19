@@ -1,0 +1,1 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/qi4p6wgjvioevo7d?svg=true)](https://ci.appveyor.com/project/ivalynx/ajs-homeworks-symbols-iterators-generators-symbols)
