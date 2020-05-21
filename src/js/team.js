@@ -2,13 +2,12 @@ import Person from './Person';
 
 export default class Team {
   constructor() {
-    this[Symbol.for('size')] = 0;
+    this.collection = [];
   }
 
   getPersons(object) {
     if (object instanceof Person) {
-      this[this[Symbol.for('size')]] = object;
-      this[Symbol.for('size')] += 1;
+      this.collection.push(object);
     } else {
       throw (new Error('Добавить можно только объект класса Person'));
     }
@@ -16,14 +15,14 @@ export default class Team {
 
   [Symbol.iterator]() {
     let current = 0;
-    const last = this[Symbol.for('size')];
+    const last = this.collection.length;
     return {
       next() {
         let result = null;
         if (current <= last) {
           result = {
             done: false,
-            value: this[current += 1],
+            value: current += 1,
           };
         }
         result = {
