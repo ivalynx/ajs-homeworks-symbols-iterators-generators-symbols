@@ -26,8 +26,8 @@ test('Если складывать объекты Person в массив, то 
     team.getPersons(new Person());
   }
   const result = [];
-  for (const iterator of team.collection) {
-    result.push(iterator);
+  for (let index = 0; index < team.collection.length; index += 1) {
+    result.push(team.collection[index]);
   }
   expect(result).toEqual([
     {
@@ -49,7 +49,7 @@ test('Если складывать объекты Person в массив, то 
   ]);
 });
 
-test('Итератор класса Team не работает', () => {
+test('Итератор для самого объекта класса Team не работает', () => {
   const n = 2;
   const team = new Team();
   for (let index = 0; index < n; index += 1) {
