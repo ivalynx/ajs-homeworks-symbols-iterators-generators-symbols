@@ -15,19 +15,21 @@ test('В team можно добавить n объектов Person', () => {
   for (let index = 0; index < n; index += 1) {
     team.getPersons(new Person());
   }
-  const result = team.collection.length;
+  const result = team[Symbol.for('size')];
   expect(result).toBe(n);
 });
 
-test('Если складывать объекты Person в массив, то итерируется только он своим собственным методом, потому что он массив', () => {
+test('team итерируется, итератор отдаёт объекты класса Person', () => {
   const n = 2;
   const team = new Team();
   for (let index = 0; index < n; index += 1) {
     team.getPersons(new Person());
   }
   const result = [];
-  for (const iterator of team.collection) {
-    result.push(iterator);
+  for (const person of team) {
+    if (team[person] !== undefined) {
+      result.push(team[person]);
+    }
   }
   expect(result).toEqual([
     {
@@ -47,19 +49,4 @@ test('Если складывать объекты Person в массив, то 
       defence: 10,
     },
   ]);
-});
-
-test('Итератор класса Team не работает', () => {
-  const n = 2;
-  const team = new Team();
-  for (let index = 0; index < n; index += 1) {
-    team.getPersons(new Person());
-  }
-  const collection = [];
-  let result = true;
-  for (const iterator of team) {
-    collection.push(iterator);
-    result = false;
-  }
-  expect(result).toBeTruthy();
 });

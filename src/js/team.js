@@ -2,33 +2,29 @@ import Person from './Person';
 
 export default class Team {
   constructor() {
-    this.collection = [];
+    this[Symbol.for('size')] = 0;
   }
 
   getPersons(object) {
     if (object instanceof Person) {
-      this.collection.push(object);
+      this[this[Symbol.for('size')]] = object;
+      this[Symbol.for('size')] += 1;
     } else {
       throw (new Error('Добавить можно только объект класса Person'));
     }
   }
 
   [Symbol.iterator]() {
-    let current = 0;
-    const last = this.collection.length;
     return {
+      current: 0,
+      last: this[Symbol.for('size')],
       next() {
-        let result = null;
-        if (current <= last) {
-          result = {
-            done: false,
-            value: current += 1,
-          };
+        if (this.current <= this.last) {
+          const curr = this.current;
+          this.current += 1;
+          return { done: false, value: curr };
         }
-        result = {
-          done: true,
-        };
-        return result;
+        return { done: true };
       },
     };
   }
